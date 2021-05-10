@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 
 	"gorm.io/gorm"
 )
@@ -32,4 +33,13 @@ func main() {
 	}
 
 	defer sqlDB.Close()
+
+	// http.HandleFunc()
+	http.HandleFunc("/", homePage)
+	log.Fatal(http.ListenAndServe(":8081", nil))
+
+}
+
+func homePage(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "We are on HomePage")
 }
